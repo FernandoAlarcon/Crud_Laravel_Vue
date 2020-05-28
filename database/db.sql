@@ -172,11 +172,11 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `nombre`, `foto`, `estado`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'Cristiano Ronaldo', 'img/usuarios/anni.jpg', 1, NULL, NULL, '2020-02-21 19:30:45', '2020-02-21 19:30:45', NULL),
 (2, 'Lionel Messi', 'img/usuarios/brad.jpg', 1, NULL, NULL, '2020-02-21 19:30:45', '2020-02-21 19:30:45', NULL),
-(3, 'Carlos Valderrama', NULL, 0, NULL, NULL, '2020-02-21 19:31:20', '2020-02-21 19:31:20', NULL),
+(3, 'Carlos Valderrama', '', 0, NULL, NULL, '2020-02-21 19:31:20', '2020-02-21 19:31:20', NULL),
 (4, 'René Higuita', 'img/usuarios/emma.jpg', 1, NULL, NULL, '2020-02-21 19:31:20', '2020-02-21 19:31:20', NULL),
 (5, 'Edson Pelé', 'img/usuarios/james.jpg', 1, NULL, NULL, '2020-02-21 19:31:58', '2020-02-21 19:31:58', NULL),
 (6, 'Diego Maradona', 'img/usuarios/jim-carrey.jpg', 1, NULL, NULL, '2020-02-21 19:31:58', '2020-02-21 19:31:58', NULL),
-(7, 'Kylian Mbappé', NULL, 0, NULL, NULL, '2020-02-21 19:33:02', '2020-02-21 19:33:02', NULL);
+(7, 'Kylian Mbappé', '', 0, NULL, NULL, '2020-02-21 19:33:02', '2020-02-21 19:33:02', NULL);
 
 --
 -- Índices para tablas volcadas
