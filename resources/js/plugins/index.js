@@ -1,5 +1,5 @@
-import './axios'
-import './fontawesome'
+import './axios.js'
+import './fontawesome.js'
 import 'bootstrap'
 import "@mdi/font/css/materialdesignicons.min.css"
 import 'datatables.net-bs4'

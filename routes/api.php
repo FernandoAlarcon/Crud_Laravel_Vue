@@ -12,7 +12,14 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
- 
+
+Route::resource('products', 'DataController',['except'=>['edit', 'show' ]]);
+Route::resource('bodegas', 'BodegaController',['except'=>['edit', 'show']]);
+Route::resource('Users', 'UserController',['except'=>['edit', 'show']]);
+Route::resource('inventario', 'InventarioController',['except'=>['edit']]);
+Route::resource('historials', 'HistorialsController',['except'=>['edit']]);
+
+
 Route::group(['middleware' => 'auth:api'], function () {
 
     Route::post('logout', 'Auth\LoginController@logout');

@@ -20,7 +20,7 @@
             <div class="col-5">
                 <label>Producto</label>
                 <el-select      
-                    v-model     = "idProducto"
+                    v-model="idProducto"
                     placeholder = "Select"
                     class       = "w-100"
                     >
@@ -63,7 +63,8 @@
 
 <script>
 
-    const axios = require('axios');
+    //const axios = require('axios');
+import $ from 'jquery';
 
 export default {
     
@@ -72,7 +73,7 @@ export default {
         this.getBodegas()
     },
     components: {
-        modal: () => import('~/components/modal')
+        modal: () => import('../../components/modal.vue')
     },
     data(){
         return {
@@ -101,7 +102,7 @@ export default {
         getProducts: function () {
 
                     //this.productsData = '';
-                    var urlProducts = '/products';
+                    var urlProducts = 'api/products';
                     axios.get(urlProducts).then(
                     response=>{
                         this.productsData = response.data.tasks.data
@@ -110,7 +111,7 @@ export default {
         },
         getBodegas: function () {
                     //this.bodegasData = '';
-                    var urlProducts = '/bodegas';
+                    var urlProducts = 'api/bodegas';
                     axios.get(urlProducts).then(
                     response=>{
                         this.bodegasData = response.data.Data.data

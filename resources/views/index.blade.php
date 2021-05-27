@@ -7,8 +7,7 @@ $config = [
 ];
 @endphp
 
-
-<!DOCTYPE html>
+ 
 <html lang="{{ app()->getLocale() }}">
 <head>
   <meta charset="utf-8">
@@ -17,9 +16,16 @@ $config = [
   <title> {{ config('app.name') }}</title>
 
   <link rel="stylesheet" href="{{ mix('dist/css/app.css') }}">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+  <script src="/jquery-3.3.1.min.js"></script>
 </head>
 <body>
-  <div id="app"></div> 
+  <div id="app"> 
+      <div id="Aplicacion" >
+          <app></app>
+      </div>
+  </div>
   
   
   <script>
@@ -27,7 +33,7 @@ $config = [
   </script> 
 
  
-  <script src="{{ mix('dist/js/app.js') }}"></script>
+  <script src="{{ asset('dist/js/app.js') }}"></script>
 </body>
 </html> 
- 
+  

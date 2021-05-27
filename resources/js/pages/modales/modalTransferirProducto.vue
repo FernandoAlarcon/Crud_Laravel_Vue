@@ -72,7 +72,8 @@
 
 <script>
     
-    const axios = require('axios');
+    //const axios = require('axios');
+import $ from 'jquery';
 
 export default {
         
@@ -81,7 +82,7 @@ export default {
         this.getBodegas()
     },
     components: {
-        modal: () => import('~/components/modal')
+        modal: () => import('../../components/modal.vue')
     },
     data(){
         return {
@@ -119,7 +120,7 @@ export default {
 
                 if(confirm('Estas seguro de que deseas hacer el traspaso')){
 
-                var urlUpdate = '/inventario_update';
+                var urlUpdate = 'api/inventario_update';
                 this.DataComplete[1] = parseInt(this.DataComplete[1]); 
                 this.CantidadTotal   = parseInt(this.CantidadTotal);
 
@@ -197,7 +198,7 @@ export default {
         },
         getBodegas: function () {
 
-                    var UrlBodegas = '/bodegas';
+                    var UrlBodegas = 'api/bodegas';
                     axios.get(UrlBodegas).then(
                     response=>{
                         this.bodegasData = response.data.Data.data
@@ -205,7 +206,7 @@ export default {
                      
         },
         getProductosDisponibles: function(){
-                    var urlInventarios = '/inventario_data';
+                    var urlInventarios = 'api/inventario_data';
                     axios.get(urlInventarios,{params: {idBodega: this.BodegaSalida}}).then(
                     response=>{
                         this.InventariosData = response.data.inventarios.data

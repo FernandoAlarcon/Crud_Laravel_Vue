@@ -5,9 +5,11 @@
 </template>
 
 <script>
+import $ from 'jquery';
+
 export default {
     components: {
-        modal: () => import('~/components/modal')
+        modal: () => import('../../components/modal.vue')
     },
     methods: {
         toggle(){

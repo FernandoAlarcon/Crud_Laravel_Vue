@@ -9,10 +9,10 @@
 </template>
 
 <script>
-import Loading from './Loading'
+import Loading from './Loading.vue'
 
 // Load layout components dynamically.
-const requireContext = require.context('~/layouts', false, /.*\.vue$/)
+const requireContext = require.context('../layouts', false, /.*\.vue$/)
 
 const layouts = requireContext.keys()
   .map(file =>
@@ -23,9 +23,7 @@ const layouts = requireContext.keys()
     return components
   }, {})
 
-export default {
-  el: '#app',
-
+export default { 
   components: {
     Loading
   },

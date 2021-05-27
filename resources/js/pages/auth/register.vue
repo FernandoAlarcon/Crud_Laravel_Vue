@@ -63,7 +63,7 @@
 
 <script>
 import Form from 'vform'
-import LoginWithGithub from '~/components/LoginWithGithub'
+import LoginWithGithub from '../../components/LoginWithGithub.vue'
 
 export default {
   middleware: 'guest',

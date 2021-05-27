@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import Card from './Card'
-import Child from './Child'
-import Button from './Button'
-import Checkbox from './Checkbox'
+import Card from './Card.vue'
+import Child from './Child.vue'
+import Button from './Button.vue'
+import Checkbox from './Checkbox.vue'
 import { HasError, AlertError, AlertSuccess } from 'vform'
 
 // Components that are registered globaly.

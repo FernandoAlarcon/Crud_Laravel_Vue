@@ -8,7 +8,7 @@
                     <div class="row-12" >
                         <div class="row" >
                             <div class="col-md-4" >
-                                <input v-model="bodegasD"  type="text" id="message1" class="form-control" placeholder="Palabra de ayuda" v-on:keyup="getKeyBodegas()"
+                                <input v-model="bodegasD"  type="text" id="message1" class="form-control" placeholder="Palabra de ayuda" v-on:keyup="getKeyBodegas()" />
                             </div>
                         </div>
                     </div>
@@ -26,7 +26,7 @@
                                             <input 
                                              type    = "text"
                                              class   = "form-control"
-                                             v-model = "newNameBodega" 
+                                             v-model="newNameBodega" 
                                              value   = "" />
                                         </div>
                                     </div>
@@ -165,7 +165,7 @@
 
                 <div class="border-dark p-2 br-5 my-2">
                     
-                     <!-- div>
+                    <div>
                      <el-popover
                              ref="popovertrigger"
                              trigger="click"
@@ -186,7 +186,7 @@
                         Productos 
                         <i slot="reference" class="mdi mdi-plus-circle f-22 cr-pointer" />
                       </button>
-                    </div --> 
+                    </div> 
 
                     <div  class="row mx-0 my-3 grandt-div-2">
                       <div  >
@@ -233,7 +233,9 @@
                         <label class="mr-2">Rojo</label>
                         <div class="custom-control custom-switch">
 
-                            <input  type  = "checkbox"  class = "custom-control-input" id="ColorTabla"   v-on:click.prevent="ChangueStyles()"  v-model="value" /> 
+                            <input  type="checkbox"  
+                                    class="custom-control-input"
+                                    id="ColorTabla"   v-on:click.prevent="ChangueStyles()"  v-model="value" /> 
 
                             <label class="custom-control-label" for="ColorTabla">Azul</label>
                         </div>
@@ -241,7 +243,10 @@
 
                      
 
-                    <button type="button" class="btn btn-success my-auto btn-sm d-flex" name="button" @click="agregarProducto">
+                    <button type="button" 
+                            class="btn btn-success my-auto btn-sm d-flex" 
+                            name="button" 
+                            v-on:click.prevent="agregarProducto()" >
                         <span class="my-auto">Agregar producto</span>
                         <i class="mdi mdi-plus-box cr-pointer f-17 ml-2 my-n1" />
                     </button>
@@ -277,15 +282,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                 <tr v-for="inventario of inventarios" >
-
+                                <tr v-for="inventario of inventarios" >
                                     <td> {{inventario.inventariosItem}} </td>
                                     <td> {{inventario.nombreBodega}}   </td>
                                     <td> {{inventario.NombreProducto}} </td>
                                     <td> {{inventario.cantidad}}       </td>
                                     <td> {{inventario.FechaCreacion}}  </td>
-   
-                                  </tr>
+                                </tr>
                             </tbody>
                         </table>
 
@@ -302,11 +305,8 @@
                         </div>
 
 
-
-                        <div id="inputs"class="grandt-div" >
+                        <div id="inputs" class="grandt-div" >
                        
-
-
                             <table  id="listado_por_legal" class="table table-sm table-hover table-striped ">
                                 <thead>
                                     <tr>
@@ -336,7 +336,7 @@
             </div>
         </div>
 
-        <modal-agregar-producto ref="modalAgregarProducto" />
+        <modal-agregar-producto    ref="modalAgregarProducto" />
         <modal-transferir-producto ref="modalTransferirProducto" />
         <modal ref="cambiarEstado" titulo="Cambiar estado usuario">
             <div class="row mx-0 my-3 justify-content-center">
@@ -352,75 +352,74 @@
     </section>
 </template>
 
-<script>
+<script type="text/javascript" >
+import $ from 'jquery';
+//$(".img-dt").on("error",function(){ $(this).attr('src', "img/usuarios/user.jpg")});
 
-$(".img-dt").on("error",function(){this.src="img/usuarios/user.jpg"});
-
-const axios = require('axios');
-
+//const axios = require('axios');
 
 export default {
     
-
-    
+    name: 'Index',
+    mounted() {
+        console.log('Llego al Index.')
+    },
     created: function () { 
-            this.getProducts();
-            this.getProductsD();
-            this.getBodegas();
-            this.getUsersB();
-            this.getUsersD();
-            this.getInventario();
-            this.ChangueStyles();
-            this.getHistorial();
+        this.getProducts();
+        this.getProductsD();
+        this.getBodegas();
+        this.getUsersB();
+        this.getUsersD();
+        this.getInventario();
+        this.ChangueStyles();
+        this.getHistorial();
     },
     components: {
-        modalAgregarProducto: () => import('./modales/modalAgregarProducto'),
-        modalTransferirProducto: () => import('./modales/modalTransferirProducto'),
-        modal: () => import('~/components/modal')
+        modalAgregarProducto: () => import('./modales/modalAgregarProducto.vue'),
+        modalTransferirProducto: () => import('./modales/modalTransferirProducto.vue'),
+        modal: () => import('../components/modal.vue')
         
     },
-    data(){return {
+    
+    data() {
+        return {
         
-        Infohistorial:'',
-        historiales: [],
-        message:'',
-        dataInv: '',
-        bodegasD:'',
-        newNameBodega:'',
-        newUserBodega:'',
-        UpdateStateBodega: {'id_Bodega': '', 'Estados': ''},
-        UpdateStateProduct: {'id_Bodega': '', 'Estados': ''},
-        Stateusuario:  {'id_usuario': '', 'Estados': ''},
-        bodegas: [],
-        products: [],
-        productsData: [],
-        usersB:[],
-        usersData:[],
-        inventarios: [],
-        respBodega: false,
-        errors: '',
-        product: false,
-        colorTabla: 0,
-        value: '',
-        tabla_empresa:'',
-        modals: {
-            notice: false
-        },
-        NombreProducto:'',
-        BodegasNew:'',
-        ProductosNew:'',
-        checked_color:'',
-        ColorChangue:'#EFA1A1',
-        bgc_table:{
-            backgroundColor:'#EFA1A1'
-        },
-    } },
-    mounted(){
-        //this.initDatatables();
-    },
+                Infohistorial : '',
+                historiales   : [],
+                message       : '',
+                dataInv       : '',
+                bodegasD      : '',
+                newNameBodega : '',
+                newUserBodega : '',
+                UpdateStateBodega : {'id_Bodega': '', 'Estados': ''},
+                UpdateStateProduct: {'id_Bodega': '', 'Estados': ''},
+                Stateusuario  :  {'id_usuario': '', 'Estados': ''},
+                bodegas       : [],
+                products      : [],
+                productsData  : [],
+                usersB        : [],
+                usersData     : [],
+                inventarios   : [],
+                respBodega    : false,
+                errors        : '',
+                product       : false,
+                colorTabla    : 0,
+                value         : '',
+                tabla_empresa :'',
+                modals: {
+                    notice: false
+                },
+                NombreProducto :'',
+                BodegasNew     :'',
+                ProductosNew   :'',
+                checked_color  :'',
+                ColorChangue   :'#EFA1A1',
+                bgc_table:{
+                    backgroundColor:'#EFA1A1'
+                },
+        }
+    }, 
     methods: {
-
-
 
         imageUrlUser(event) {
             event.target.src = "/img/usuarios/default.png"
@@ -442,7 +441,7 @@ export default {
 
         },
         createBodega: function () {
-                var url = '/bodegas';
+                var url = 'api/bodegas';
                 axios.post(url, {
                         nombre: this.newNameBodega,
                         id_responsable: this.newUserBodega,
@@ -461,7 +460,7 @@ export default {
         updateUser: function (usuario) {
 
             if (confirm('¿ Desear Actualizar el estado de ' + usuario.nombre+' ?')) {
-                    var urlUpdateUser = `Users/${usuario.id}`;
+                    var urlUpdateUser = `api/Users/${usuario.id}`;
 
                     if (usuario.estado === 0 ) {
                         this.Stateusuario.id_usuario = usuario.id;
@@ -498,7 +497,7 @@ export default {
         updateBodegaState: function (bodega) {
 
             if (confirm('¿ Desear Actualizar el estado de ' + bodega.nombre+' ?')) {
-                    var urlUpdate = `bodegas/${bodega.BodegaId}`;
+                    var urlUpdate = `api/bodegas/${bodega.BodegaId}`;
 
                     if (bodega.EstadoBodegas === 0 ) {
                         this.UpdateStateBodega.id_Bodega = bodega.BodegaId;
@@ -531,16 +530,17 @@ export default {
 
         },
         getHistorial(){
+
+            var urlHistorials = 'api/historials';
+
              if (this.Infohistorial.length > 2) { 
 
-                    var urlHistorials = '/historials';
                     axios.get(urlHistorials,{params: {dataInfo: this.Infohistorial}}).then(response=>{
                         this.historiales = response.data.inventarios.data
                     });
 
                      
                 }else{
-                    var urlHistorials = '/historials';
                     axios.get(urlHistorials).then(
                     response=>{
                         this.historiales = response.data.inventarios.data
@@ -559,39 +559,37 @@ export default {
         },
         getInventario: function (page) {
 
+                var urlInventario = '/api/inventario';   
                 if (this.dataInv.length > 2) { 
-
-                    var urlInventario = '/inventario';
                     axios.get(urlInventario,{params: {dataInfo: this.dataInv}}).then(response=>{
                         this.inventarios = response.data.inventarios.data
-                    });
-
-                     
-                }else{
-                    var urlInventario = '/inventario';
+                    });                     
+                }else{ 
                     axios.get(urlInventario).then(
                     response=>{
                         this.inventarios = response.data.inventarios.data
                     });
+                }  
 
-                } 
                  
         },
         getProducts: function (page) {
-
+            
+                var urlProducts = '/api/products';
                 if (this.message.length > 2) { 
 
-                    var urlProducts = '/products';
                     axios.get(urlProducts,{params: {message: this.message}}).then(response=>{
                         this.products = response.data.tasks.data
+                        console.log('products '+this.products)
                     });
 
                      
-                }else{
-                    var urlProducts = '/products';
+                }else{ 
                     axios.get(urlProducts).then(
                     response=>{
                         this.products = response.data.tasks.data
+                        console.log('products '+this.products)
+
                     });
 
                      
@@ -600,7 +598,7 @@ export default {
         },
         getProductsD: function (page) {
 
-                    var urlProducts = '/products';
+                    var urlProducts = '/api/products';
                     axios.get(urlProducts).then(
                     response=>{
                         this.productsData = response.data.tasks.data
@@ -608,50 +606,46 @@ export default {
 
         },
         getBodegas: function (page) {
-
+            
+                var urlProducts = '/api/bodegas';
                 if (this.bodegasD.length > 1) {  
 
-                    var urlProducts = '/bodegas';
                     axios.get(urlProducts,{params: {bodegasD: this.bodegasD}}).then(response=>{
                         this.bodegas = response.data.Data.data
                     });
  
                 }else{
-                    var urlProducts = '/bodegas';
+                    
                     axios.get(urlProducts).then(
                     response=>{
                         this.bodegas = response.data.Data.data
                     });
                 } 
 
-                //console.log('bodegas data ', this.bodegas);
         },
         getUsersB: function () {
 
-                    var urlUsersB = '/Users';
+                    var urlUsersB = '/api/Users';
                     axios.get(urlUsersB).then(
                     response=>{
                         this.usersB = response.data.DataUsers
                     });
                     this.usersData = this.usersB;
 
-                    //console.log('usersB ', this.usersData ); 
         },
-
         getUsersD: function () {
 
-                    var urlUsersD = '/Users';
+                    var urlUsersD = '/api/Users';
                     axios.get(urlUsersD).then(
                     response=>{ 
                         this.usersData = response.data.DataUsers
-                    }); 
- 
+                    });  
        
         },
         updateProducts: function (product) {
 
                 if (confirm('¿ Desear Actualizar el estado de '+product.nombre+' ?')) {
-                    var urlUpdate = `products/${product.id}`;
+                    var urlUpdate = `api/products/${product.id}`;
 
                     if (product.estado == 0 ) {
                         this.UpdateStateProduct.id_productos = product.id;
@@ -667,11 +661,9 @@ export default {
                     } 
                     console.log('seva update ', this.UpdateStateProduct);
                     axios.put( urlUpdate, this.UpdateStateProduct ).then(response=>{
-                        this.getProductsD();
-                        // refrescamos la funcion
+                        this.getProductsD(); 
                         this.UpdateStateProduct = {'id_productos': '', 'Estados': ''};
-                        this.errors = [];
-                        //toastr.success('State Update Correctly');
+                        this.errors = []; 
                     }).catch(error =>{
                         this.errors = 'Corrija para poder editar con éxito'
                     });
@@ -679,10 +671,7 @@ export default {
 
         },
         cambiarEstadoUsuario(){ this.$refs.cambiarEstado.toggle() },
-        agregarProducto(){ 
-            this.$refs.modalAgregarProducto.toggle(),
-            this.getInventario()
-        },
+        agregarProducto(){ this.$refs.modalAgregarProducto.toggle(), this.getInventario() },
         trasnferirProducto(){ this.$refs.modalTransferirProducto.toggle() }
        
         
